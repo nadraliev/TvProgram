@@ -5,7 +5,7 @@
 
     <bean id="thymeleafMailResolver" class="org.thymeleaf.templateresolver.FileTemplateResolver">
         <property name="templateMode" value="XHTML" />
-        <property name="prefix" value="WEB-INF/templates" />
+        <property name="prefix" value="/web/WEB-INF/templates/" />
         <property name="suffix" value=".html"/>
         <property name="characterEncoding" value="UTF-8" />
         <property name="cacheable" value="false"/>
