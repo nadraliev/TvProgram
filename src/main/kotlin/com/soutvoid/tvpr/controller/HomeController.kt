@@ -12,7 +12,7 @@ class HomeController {
 
     @RequestMapping("/")
     fun index(model: Model, @RequestParam(name = "name", required = false, defaultValue = "Name") name: String) : ModelAndView {
-        return ModelAndView("index", "name", name)
+        return ModelAndView("index")
     }
 
     @RequestMapping("/test")
