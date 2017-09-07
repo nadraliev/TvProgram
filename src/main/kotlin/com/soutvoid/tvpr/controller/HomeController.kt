@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView
 class HomeController {
 
     @RequestMapping("/")
-    fun index(model: Model, @RequestParam(name = "name", required = false, defaultValue = "Name") name: String) : ModelAndView {
+    fun index(model: Model) : ModelAndView {
         return ModelAndView("index")
     }
 
