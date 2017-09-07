@@ -15,4 +15,8 @@ class HomeController {
         return ModelAndView("index", "name", name)
     }
 
+    @RequestMapping("/test")
+    @ResponseBody
+    fun test(): String = "test"
+
 }
