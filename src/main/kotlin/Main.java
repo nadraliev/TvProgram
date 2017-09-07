@@ -1,3 +1,4 @@
+import com.soutvoid.tvpr.TvprApplication;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
