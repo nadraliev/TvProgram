@@ -13,7 +13,8 @@ import org.springframework.web.servlet.ModelAndView
 class HomeController {
 
     @RequestMapping(method = arrayOf(RequestMethod.GET))
-    fun index() : String {
+    fun index(model: Model, @RequestParam(name = "name", required = false, defaultValue = "me") name: String) : String {
+        model.addAttribute("name", name)
         return "index"
     }
 
