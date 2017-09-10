@@ -46,7 +46,7 @@
                 data: nameField.val()
             });
             var genresLis = $('#genres').find("li");
-            var newLine = "<li class='collection-item'>"+nameField.val()+"</li>";
+            var newLine = '<li class="collection-item">'+nameField.val()+'</li>';
             genresLis.last().before(newLine);
             nameField.val("");
         });
