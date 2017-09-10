@@ -8,7 +8,10 @@
 <div th:replace="fragments/header :: header"></div>
 <main class="container">
 
-    <ul id="genres" class="collection genres">
+    <div class="row">
+
+    <!-- Genres list -->
+    <ul id="genres" class="collection genres col s12 m2 l2">
         <li th:each="genre: ${genres}" class="collection-item">
             <div>
                 <span th:text="${genre.name}"></span>
@@ -20,21 +23,30 @@
         </li>
     </ul>
 
+
+    <!-- Channels and schedules -->
+
+
+
+    </div>
+
+
     <!-- New genre modal -->
     <div class="row">
-    <div id="newGenre" class="modal col s8 offset-s1 l4 offset-l2">
-        <div class="modal-content">
-            <h4>New genre</h4>
-            <div class="input-field">
-                <input id="newGenreName" type="text" class="validate"/>
-                <label for="newGenreName">Name</label>
+        <div id="newGenre" class="modal col s8 offset-s1 l4 offset-l2">
+            <div class="modal-content">
+                <h4>New genre</h4>
+                <div class="input-field">
+                    <input id="newGenreName" type="text" class="validate"/>
+                    <label for="newGenreName">Name</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a onclick="addGenre(this)" href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">ADD</a>
             </div>
         </div>
-        <div class="modal-footer">
-            <a onclick="addGenre(this)" href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">ADD</a>
-        </div>
     </div>
-    </div>
+
 </main>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="js/materialize.min.js"></script>
