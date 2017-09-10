@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <a id="newGenreAddBtn" href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">ADD</a>
+            <a onclick="addGenre(this)" href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">ADD</a>
         </div>
     </div>
     </div>
@@ -41,38 +41,8 @@
 <script>
     $(document).ready(function () {
         $('.modal').modal();
-
-        $('#newGenreAddBtn').click(function () {
-            var nameField = $('#newGenreName');
-            $.ajax({
-                url: "/newGenre",
-                type: "POST",
-                contentType: "text/plain",
-                data: nameField.val()
-            });
-            var genresLis = $('#genres').find("li");
-            var newLine = '<li class="collection-item"><div>'+nameField.val()+'<a onclick="deleteGenre(this)"  href="#!" class="secondary-content"><i class="material-icons md-dark">clear</i></a></div></li>';
-            genresLis.last().before(newLine);
-            nameField.val("");
-        });
-
-        $("a[name='genreDeleteBtn']").click(function () {
-
-        });
     });
-
-    function deleteGenre(element) {
-        var genresList = $('#genres');
-        var li = $(element).closest("li");
-        var index = $(li.parent().children()).index(li);
-        $.ajax({
-            url: "/deleteGenre",
-            type: "POST",
-            contentType: "text/plain",
-            data: index.toString()
-        });
-        $($(element).parent().parent(), genresList).remove();
-    }
 </script>
+<script type="text/javascript" src="js/genres.js"></script>
 </body>
 </html>
