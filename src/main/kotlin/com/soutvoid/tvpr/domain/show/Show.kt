@@ -13,4 +13,13 @@ class Show(
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
         var id: Long = 0
-): Serializable
+) : Serializable {
+
+    /**
+     * @param[minutes] minutes since midnight
+     * @return formatted string. example: 15:32
+     */
+    fun getFormattedTime(minutes: Long): String =
+            "${String.format("%02d", minutes / 60)}:${String.format("%02d", minutes % 60)}"
+
+}

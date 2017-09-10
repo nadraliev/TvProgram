@@ -37,7 +37,10 @@
                         <div style="height: 2px" class="teal"></div>
                         <div class="card-panel small" th:each="show : ${channel.schedule.shows}"
                              th:if="${iter.index == show.dayOfWeek}">
-                                <span th:text="${show.name}"></span>
+                            <span th:text="${show.name}"></span><br/>
+                            <span th:text="${show.getFormattedTime(show.startTime)}"></span>
+                            <span> - </span>
+                            <span th:text="${show.getFormattedTime(show.endTime)}"></span>
                         </div>
                     </div>
                 </div>
