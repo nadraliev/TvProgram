@@ -28,8 +28,12 @@ class HomeController @Inject constructor(var genresRepository: GenresRepository)
         return true
     }
 
-    @RequestMapping("/test")
-    fun test(): String = "header"
+    @RequestMapping("/deleteGenre", method = arrayOf(RequestMethod.POST))
+    @ResponseBody
+    fun deleteGenre(@RequestBody index: String): Boolean {
+        genresRepository.delete(genresRepository.findAll().toList()[index.toInt()])
+        return true
+    }
 
 
 }

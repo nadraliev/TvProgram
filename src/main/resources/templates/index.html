@@ -9,7 +9,12 @@
 <main class="container">
 
     <ul id="genres" class="collection genres">
-        <li th:each="genre: ${genres}" th:text="${genre.name}" class="collection-item"></li>
+        <li th:each="genre: ${genres}" class="collection-item">
+            <div>
+                <span th:text="${genre.name}"></span>
+                <a onclick="deleteGenre(this)" href="#!" class="secondary-content"><i class="material-icons md-dark">clear</i></a>
+            </div>
+        </li>
         <li class="collection-item">
             <a class="waves_effect waves-light btn modal-trigger" href="#newGenre">New</a>
         </li>
@@ -21,7 +26,7 @@
         <div class="modal-content">
             <h4>New genre</h4>
             <div class="input-field">
-                <input id="newGenreName" type="text" class="validate"></input>
+                <input id="newGenreName" type="text" class="validate"/>
                 <label for="newGenreName">Name</label>
             </div>
         </div>
@@ -46,11 +51,28 @@
                 data: nameField.val()
             });
             var genresLis = $('#genres').find("li");
-            var newLine = '<li class="collection-item">'+nameField.val()+'</li>';
+            var newLine = '<li class="collection-item"><div>'+nameField.val()+'<a onclick="deleteGenre(this)"  href="#!" class="secondary-content"><i class="material-icons md-dark">clear</i></a></div></li>';
             genresLis.last().before(newLine);
             nameField.val("");
         });
+
+        $("a[name='genreDeleteBtn']").click(function () {
+
+        });
     });
+
+    function deleteGenre(element) {
+        var genresList = $('#genres');
+        var li = $(element).closest("li");
+        var index = $(li.parent().children()).index(li);
+        $.ajax({
+            url: "/deleteGenre",
+            type: "POST",
+            contentType: "text/plain",
+            data: index.toString()
+        });
+        $($(element).parent().parent(), genresList).remove();
+    }
 </script>
 </body>
 </html>
