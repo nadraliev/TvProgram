@@ -1,11 +1,56 @@
-
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Title</title>
+<head th:replace="fragments/main_head :: main_head">
+    <link type="text/css" rel="stylesheet" href="/static/css/materialize.min.css" media="screen,projection"/>
 </head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <body>
-    <p>Hello, <span th:text="${name}"/> </p>
+<div th:replace="fragments/header :: header"></div>
+<main class="container">
+
+    <ul id="genres" class="collection genres">
+        <li th:each="genre: ${genres}" th:text="${genre.name}" class="collection-item"></li>
+        <li class="collection-item">
+            <a class="waves_effect waves-light btn modal-trigger" href="#newGenre">New</a>
+        </li>
+    </ul>
+
+    <!-- New genre modal -->
+    <div class="row">
+    <div id="newGenre" class="modal col s8 offset-s1 l4 offset-l2">
+        <div class="modal-content">
+            <h4>New genre</h4>
+            <div class="input-field">
+                <input id="newGenreName" type="text" class="validate">
+                <label for="newGenreName">Name</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a id="newGenreAddBtn" href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">ADD</a>
+        </div>
+    </div>
+    </div>
+</main>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.modal').modal();
+
+        $('#newGenreAddBtn').click(function () {
+            var nameField = $('#newGenreName');
+            $.ajax({
+                url: "/newGenre",
+                type: "POST",
+                contentType: "text/plain",
+                data: nameField.val()
+            });
+            var genresLis = $('#genres').find("li");
+            var newLine = "<li class='collection-item'>"+nameField.val()+"</li>";
+            genresLis.last().before(newLine);
+            nameField.val("");
+        });
+    });
+</script>
 </body>
 </html>

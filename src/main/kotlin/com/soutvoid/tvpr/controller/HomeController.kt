@@ -1,16 +1,19 @@
 package com.soutvoid.tvpr.controller
 
+import com.soutvoid.tvpr.domain.genre.Genre
+import com.soutvoid.tvpr.domain.genre.GenresRepository
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.ResponseBody
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.ModelAndView
+import javax.inject.Inject
 
 @RequestMapping("/")
 @Controller
-class HomeController {
+class HomeController @Inject constructor(var genresRepository: GenresRepository) {
+
+    @ModelAttribute("genres")
+    fun genres(): List<Genre> = genresRepository.findAll().toList()
 
     @RequestMapping(method = arrayOf(RequestMethod.GET))
     fun index(model: Model, @RequestParam(name = "name", required = false, defaultValue = "me") name: String) : String {
@@ -18,8 +21,15 @@ class HomeController {
         return "index"
     }
 
-    @RequestMapping("/test")
+    @RequestMapping("/newGenre", method = arrayOf(RequestMethod.POST))
     @ResponseBody
-    fun test(): String = "test"
+    fun newGenre(@RequestBody name: String): Boolean {
+        genresRepository.save(Genre(name))
+        return true
+    }
+
+    @RequestMapping("/test")
+    fun test(): String = "header"
+
 
 }
