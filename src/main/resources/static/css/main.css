@@ -5,3 +5,9 @@
 .genres {
     border-width: 0;
 }
+.daySchedule {
+    height: 600px;
+}
+.card-panel.small {
+    padding: 10px;
+}

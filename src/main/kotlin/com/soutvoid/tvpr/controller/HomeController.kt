@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.ModelAndView
+import java.time.DayOfWeek
+import java.util.*
 import javax.inject.Inject
 
 @RequestMapping("/")
@@ -24,10 +26,14 @@ class HomeController @Inject constructor(var genresRepository: GenresRepository)
                     "Test channel",
                     ChannelSchedule(
                             mutableListOf(Show(
-                                    "Test show", 0, 60, 120
+                                    "Test show", 1, 60, 120
                             ))
                     )
             ))
+
+    @ModelAttribute("weekDays")
+    fun weekDays(): List<String> =
+            DayOfWeek.values().map { it.toString().capitalize() }
 
     @RequestMapping(method = arrayOf(RequestMethod.GET))
     fun index(model: Model) : String {
