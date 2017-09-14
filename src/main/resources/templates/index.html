@@ -30,7 +30,10 @@
         <!-- Channels and schedules -->
         <div class="col s12 m8 l9">
             <div th:each="channel: ${channels}">
-                <h5 th:text="${channel.name}"></h5>
+                <div class="row">
+                    <h5 th:text="${channel.name}"  class="left"></h5>
+                    <a class="waves-effect waves-light btn modal-trigger right"><i class="material-icons right">add</i>New show</a>
+                </div>
                 <div class="row">
                     <div class="col s12 m4 l3 daySchedule" th:each="day, iter: ${weekDays}">
                         <h6 th:text="${day}"></h6>
