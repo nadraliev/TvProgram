@@ -34,11 +34,14 @@ class HomeController @Inject constructor(
             listOf(Channel(
                     "Test channel",
                     ChannelSchedule(
-                            mutableListOf(Show(
-                                    "Test show", 1, 60, 120
-                            ))
+                            showsRepository.findAll().toMutableList()
                     )
             ))
+
+    @RequestMapping("/channels")
+    @ResponseBody
+    fun allChannels(model: Model): List<Channel> =
+            programs()
 
     @ModelAttribute("weekDays")
     fun weekDays(): List<String> =

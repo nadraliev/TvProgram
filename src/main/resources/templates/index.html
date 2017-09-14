@@ -93,11 +93,11 @@
                 </div>
                 <div class="input-field">
                     <input id="newShowStartTime" name="startTime" type="text" class="picker--time"/>
-                    <label>Start time</label>
+                    <label for="newShowStartTime">Start time</label>
                 </div>
                 <div class="input-field">
                     <input id="newShowEndTime" name="endTime" type="text" class="picker--time"/>
-                    <label>End time</label>
+                    <label for="newShowEndTime">End time</label>
                 </div>
                 <div class="input-field">
                     <select id="newShowGenreSelect" name="genreName">
@@ -138,7 +138,13 @@
     });
 
     function addShow(element) {
-        $.post('/newShow', $('#newShow').serialize());
+        $.post('/newShow', $('#newShow').serialize(), function () {
+            $.get("/channels", function (data) {
+                $.each(data, function (key, channel) {
+                    alert(data);
+                });
+            });
+        });
     }
 
     function newShow(element) {
