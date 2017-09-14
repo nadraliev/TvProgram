@@ -5,6 +5,7 @@ import com.soutvoid.tvpr.domain.genre.Genre
 import com.soutvoid.tvpr.domain.genre.GenresRepository
 import com.soutvoid.tvpr.domain.schedule.ChannelSchedule
 import com.soutvoid.tvpr.domain.show.Show
+import com.soutvoid.tvpr.domain.show.ShowForm
 import com.soutvoid.tvpr.domain.show.ShowsRepository
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Controller
@@ -23,6 +24,10 @@ class HomeController @Inject constructor(
 
     @ModelAttribute("genres")
     fun genres(): List<Genre> = genresRepository.findAll().toList()
+
+    @RequestMapping("/genres")
+    @ResponseBody
+    fun allGenres(model: Model): List<Genre> = genresRepository.findAll().toList()
 
     @ModelAttribute("channels")
     fun programs(): List<Channel> =
@@ -62,8 +67,8 @@ class HomeController @Inject constructor(
             method = arrayOf(RequestMethod.POST),
             consumes = arrayOf(MediaType.APPLICATION_FORM_URLENCODED_VALUE))
     @ResponseBody
-    fun newShow(@ModelAttribute("show") show: Show): Boolean {
-        showsRepository.save(show)
+    fun newShow(@ModelAttribute("ShowForm") showForm: ShowForm): Boolean {
+        showsRepository.save(showForm.getShow())
         return true
     }
 

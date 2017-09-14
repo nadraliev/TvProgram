@@ -11,6 +11,7 @@ class Show(
         var dayOfWeek: Int = 0,
         var startTime: Long = 0,    //in minutes
         var endTime: Long = 0,  //in minutes
+        var genreName: String = "",
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
         var id: Long = 0

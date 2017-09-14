@@ -34,7 +34,8 @@
                 <div class="row vertalign-wrapper">
                     <h5 th:text="${channel.name}" class="left"></h5>
                     <div class="row vertalign-center">
-                        <a class="waves-effect waves-light btn modal-trigger right" href="#newShow"><i
+                        <a class="waves-effect waves-light btn modal-trigger right" onclick="newShow(this)"
+                           href="#newShow"><i
                                 class="material-icons right">add</i>New show</a>
                     </div>
                 </div>
@@ -90,6 +91,19 @@
                     </select>
                     <label>Weekday</label>
                 </div>
+                <div class="input-field">
+                    <input id="newShowStartTime" name="startTime" type="text" class="picker--time"/>
+                    <label>Start time</label>
+                </div>
+                <div class="input-field">
+                    <input id="newShowEndTime" name="endTime" type="text" class="picker--time"/>
+                    <label>End time</label>
+                </div>
+                <div class="input-field">
+                    <select id="newShowGenreSelect" name="genreName">
+                    </select>
+                    <label>Genre</label>
+                </div>
             </div>
             <div class="modal-footer">
                 <a onclick="addShow(this)" href="#!"
@@ -109,10 +123,33 @@
     $(document).ready(function () {
         $('.modal').modal();
         $('select').material_select();
+        $('.picker--time').pickatime({
+            default: 'now', // Set default time: 'now', '1:30AM', '16:30'
+            fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
+            twelvehour: false, // Use AM/PM or 24-hour format
+            donetext: 'OK', // text for done-button
+            cleartext: 'Clear', // text for clear-button
+            canceltext: 'Cancel', // Text for cancel-button
+            autoclose: false, // automatic close timepicker
+            ampmclickable: false, // make AM PM clickable
+            aftershow: function () {
+            } //Function for after opening timepicker
+        });
     });
 
     function addShow(element) {
         $.post('/newShow', $('#newShow').serialize());
+    }
+
+    function newShow(element) {
+        $.get("/genres", function (data) {
+            var genresSelect = $('#newShowGenreSelect');
+            $.each(data, function (key, genre) {
+                var newRow = "<option value='" + genre.name + "'>" + genre.name + "</option>";
+                genresSelect.append(newRow);
+            });
+            $('select').material_select();
+        });
     }
 </script>
 <script type="text/javascript" src="js/genres.js"></script>
