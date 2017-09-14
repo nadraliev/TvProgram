@@ -11,3 +11,13 @@
 .card-panel.small {
     padding: 10px;
 }
+
+.vertalign-wrapper {
+    display: table;
+    width: 100%;
+}
+
+.vertalign-center {
+    display: table-cell;
+    vertical-align: middle;
+}

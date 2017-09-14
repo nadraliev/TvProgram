@@ -2,6 +2,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/main_head :: main_head">
     <link type="text/css" rel="stylesheet" href="/static/css/materialize.min.css" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/static/css/main.css"/>
 </head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <body>
@@ -30,9 +31,12 @@
         <!-- Channels and schedules -->
         <div class="col s12 m8 l9">
             <div th:each="channel: ${channels}">
-                <div class="row">
-                    <h5 th:text="${channel.name}"  class="left"></h5>
-                    <a class="waves-effect waves-light btn modal-trigger right"><i class="material-icons right">add</i>New show</a>
+                <div class="row vertalign-wrapper">
+                    <h5 th:text="${channel.name}" class="left"></h5>
+                    <div class="row vertalign-center">
+                        <a class="waves-effect waves-light btn modal-trigger right"><i
+                                class="material-icons right">add</i>New show</a>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col s12 m4 l3 daySchedule" th:each="day, iter: ${weekDays}">
