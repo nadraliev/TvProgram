@@ -34,7 +34,7 @@
                 <div class="row vertalign-wrapper">
                     <h5 th:text="${channel.name}" class="left"></h5>
                     <div class="row vertalign-center">
-                        <a class="waves-effect waves-light btn modal-trigger right"><i
+                        <a class="waves-effect waves-light btn modal-trigger right" href="#newShow"><i
                                 class="material-icons right">add</i>New show</a>
                     </div>
                 </div>
@@ -74,13 +74,46 @@
         </div>
     </div>
 
+
+    <!-- New show modal -->
+    <div class="row">
+        <form id="newShow" class="modal modal-fixed-footer col s8 offset-s1 l4 offset-l2">
+            <div class="modal-content">
+                <h4>New show</h4>
+                <div class="input-field">
+                    <input id="newShowName" name="name" type="text" class="validate"/>
+                    <label for="newShowName">Name</label>
+                </div>
+                <div class="input-field">
+                    <select name="dayOfWeek">
+                        <option th:each="day, iter: ${weekDays}" th:value="${iter.index}" th:text="${day}"></option>
+                    </select>
+                    <label>Weekday</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a onclick="addShow(this)" href="#!"
+                   class="modal-action modal-close waves-effect waves-green btn-flat">ADD</a>
+            </div>
+        </form>
+    </div>
+
 </main>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"
+        integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i"
+        crossorigin="anonymous"></script>
+
 <script type="text/javascript" src="js/materialize.min.js"></script>
 <script>
     $(document).ready(function () {
         $('.modal').modal();
+        $('select').material_select();
     });
+
+    function addShow(element) {
+        $.post('/newShow', $('#newShow').serialize());
+    }
 </script>
 <script type="text/javascript" src="js/genres.js"></script>
 </body>

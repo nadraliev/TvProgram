@@ -1,5 +1,6 @@
 package com.soutvoid.tvpr.domain.show
 
+import org.springframework.web.bind.annotation.ModelAttribute
 import java.io.Serializable
 import javax.persistence.*
 
