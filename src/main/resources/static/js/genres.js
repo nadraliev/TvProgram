@@ -15,7 +15,7 @@ function addGenre(element) {
 function deleteGenre(element) {
     var genresList = $('#genres');
     var li = $(element).closest("li");
-    var index = $(li.parent().children()).index(li);
+    var index = $(li.parent().children()).index(li) - 1;
     $.ajax({
         url: "/deleteGenre",
         type: "POST",
