@@ -1,6 +1,7 @@
 package com.soutvoid.tvpr.controller
 
 import com.soutvoid.tvpr.domain.channel.Channel
+import com.soutvoid.tvpr.domain.channel.ChannelsRepository
 import com.soutvoid.tvpr.domain.genre.Genre
 import com.soutvoid.tvpr.domain.genre.GenresRepository
 import com.soutvoid.tvpr.domain.schedule.ChannelSchedule
@@ -20,7 +21,8 @@ import javax.inject.Inject
 @Controller
 class HomeController @Inject constructor(
         var genresRepository: GenresRepository,
-        var showsRepository: ShowsRepository) {
+        var showsRepository: ShowsRepository,
+        var channelsRepository: ChannelsRepository) {
 
     @ModelAttribute("genres")
     fun genres(): List<Genre> = genresRepository.findAll().toList()
@@ -30,13 +32,10 @@ class HomeController @Inject constructor(
     fun allGenres(model: Model): List<Genre> = genresRepository.findAll().toList()
 
     @ModelAttribute("channels")
-    fun programs(): List<Channel> =
-            listOf(Channel(
-                    "Test channel",
-                    ChannelSchedule(
-                            showsRepository.findAll().sortedBy { it.startTime }.toMutableList()
-                    )
-            ))
+    fun programs(): List<Channel> {
+        var result = channelsRepository.findAll().toList()
+        return result
+    }
 
     @RequestMapping("/channel")
     fun channel(model: Model): String {
@@ -55,6 +54,14 @@ class HomeController @Inject constructor(
     @RequestMapping("/newGenre", method = arrayOf(RequestMethod.POST))
     @ResponseBody
     fun newGenre(@RequestBody name: String): Boolean {
+        channelsRepository.save(
+                Channel(
+                        "Test channel",
+                        ChannelSchedule(
+                                mutableSetOf(Show("shit", 0, 0, 0))
+                        )
+                )
+        )
         genresRepository.save(Genre(name))
         return true
     }
@@ -77,8 +84,13 @@ class HomeController @Inject constructor(
 
     @RequestMapping("/deleteShow", method = arrayOf(RequestMethod.POST))
     @ResponseBody
-    fun deleteShow(@RequestBody id: String): Boolean {
-        showsRepository.delete(id.toLong())
+    fun deleteShow(@RequestBody ids: String): Boolean {
+        var idsArray = ids.split(" ")
+        var channelId = idsArray.first().toLong()
+        var showId = idsArray.last().toLong()
+        var channel = channelsRepository.findOne(channelId)
+        channel.schedule?.shows?.removeIf { it.id == showId }
+        channelsRepository.save(channel)
         return true
     }
 

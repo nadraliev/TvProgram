@@ -14,6 +14,7 @@ class Show(
         var genreName: String = "",
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
+        @Column(name = "show_id")
         var id: Long = 0
 ) : Serializable {
 

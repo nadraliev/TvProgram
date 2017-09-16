@@ -22,12 +22,13 @@ function newShow(element) {
 
 function deleteShow(element) {
     tvChannelToRefresh = $(element).closest(".channel");
+    var tvId = $(element).closest(".row").siblings(".hide").html();
     var id = $(element).siblings(".hide").html();
     $.ajax({
         url: "/deleteShow",
         type: "POST",
         contentType: "text/plain",
-        data: id.toString()
+        data: tvId.toString() + " " + id.toString()
     }).done(function () {
         $.get("/channel", function (data) {
             tvChannelToRefresh.replaceWith(data);

@@ -6,6 +6,7 @@
 </head>
 <body>
 <div th:each="channel: ${channels}" th:fragment="channel" class="channel">
+    <span th:text="${channel.id}" class="hide"></span>
     <div class="row vertalign-wrapper">
         <h5 th:text="${channel.name}" class="left"></h5>
         <div class="row vertalign-center">

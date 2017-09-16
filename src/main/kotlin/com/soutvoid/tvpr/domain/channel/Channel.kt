@@ -8,8 +8,10 @@ import javax.persistence.*
 @Table(name = "channel")
 data class Channel(
         var name: String = "",
-        var schedule: ChannelSchedule = ChannelSchedule(),
+        @OneToOne(cascade = arrayOf(CascadeType.ALL))
+        var schedule: ChannelSchedule? = null,
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
+        @Column(name = "channel_id")
         var id: Long = 0
 ): Serializable
