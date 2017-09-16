@@ -14,6 +14,7 @@
         <!-- Genres list -->
         <div class="col s12 m4 l3">
             <ul id="genres" class="collection genres">
+                <li class="collection-header"><h5>Genres</h5></li>
                 <li th:each="genre: ${genres}" class="collection-item">
                     <div>
                         <span th:text="${genre.name}"></span>
