@@ -19,5 +19,5 @@ data class ShowForm(
             )
 
     fun getMinutes(time: String): Int =
-            time.substring(0, 2).toInt() * 60 + time.substring(3, 4).toInt()
+            time.substring(0, 2).toInt() * 60 + time.substring(3, 5).toInt()
 }
