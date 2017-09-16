@@ -9,6 +9,7 @@ import javax.persistence.*
 @Table(name = "schedule")
 data class ChannelSchedule(
         @OneToMany(cascade = arrayOf(CascadeType.ALL), orphanRemoval = true)
+        @OrderBy("startTime ASC")
         var shows: MutableSet<Show> = mutableSetOf(),
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
