@@ -150,4 +150,17 @@ class HomeController @Inject constructor(
         return true
     }
 
+    /**
+     * delete channel from db
+     * @param[id] id of channel to delete
+     * @return operation successful
+     * @see Channel
+     */
+    @RequestMapping("/deleteChannel", method = arrayOf(RequestMethod.POST))
+    @ResponseBody
+    fun deleteChannel(@RequestBody id: String): Boolean {
+        channelsRepository.delete(id.toLong())
+        return true
+    }
+
 }

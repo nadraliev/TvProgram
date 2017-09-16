@@ -11,7 +11,12 @@
     margin-left: 0px !important;
 }
 
-.row {
+.channelHeader {
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.flex {
     display: -webkit-flex;
     -webkit-flex-direction: row;
     -webkit-flex-wrap: wrap;

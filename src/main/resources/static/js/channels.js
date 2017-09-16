@@ -12,3 +12,17 @@ function addChannel(element) {
     });
     nameField.val("");
 }
+
+function deleteChannel(element) {
+    var channelId = $(element).closest(".channel").find(".hide").html();
+    $.ajax({
+        url: "/deleteChannel",
+        type: "POST",
+        contentType: "text/plain",
+        data: channelId.toString()
+    }).done(function () {
+        $.post("/channels", function (data) {
+            $(".channels").html(data);
+        });
+    });
+}

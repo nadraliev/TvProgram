@@ -7,15 +7,16 @@
 <body>
 <div th:each="channels: ${channels}" th:fragment="channels" class="channel">
     <span th:text="${channels.id}" class="hide"></span>
-    <div class="row vertalign-wrapper">
-        <h5 th:text="${channels.name}" class="left"></h5>
-        <div class="row vertalign-center">
-            <a class="waves-effect waves-light btn modal-trigger right" onclick="newShow(this)"
-               href="#newShow"><i
-                    class="material-icons right">add</i>New show</a>
-        </div>
-    </div>
     <div class="row">
+        <div class="channelHeader col s12 m12 l12">
+            <h5 th:text="${channels.name}" class="left"></h5>
+        </div>
+        <a class="waves-effect waves-light btn red" href="#" onclick="deleteChannel(this)">
+            <i class="material-icons right">close</i>Delete channel</a>
+        <a class="waves-effect waves-light btn modal-trigger" onclick="newShow(this)" href="#newShow">
+            <i class="material-icons right">add</i>New show</a>
+    </div>
+    <div class="row flex">
         <div class="col s12 m4 l3 daySchedule" th:each="day, iter: ${weekDays}">
             <h6 th:text="${day}"></h6>
             <div style="height: 2px" class="teal"></div>
@@ -24,7 +25,7 @@
                      th:if="${iter.index == show.dayOfWeek}"
                      th:each="show : ${channels.schedule.shows}">
                     <div class="card-content">
-                        <i onclick="deleteShow(this)" class="material-icons right">close</i>
+                        <a onclick="deleteShow(this)" href="#"><i class="material-icons md-dark right">close</i></a>
                         <span th:text="${show.id}" class="hide"></span>
                         <span th:text="${show.name}"></span><br/>
                         <span th:text="${show.getFormattedTime(show.startTime)}"></span>
