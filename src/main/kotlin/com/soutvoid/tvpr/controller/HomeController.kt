@@ -38,10 +38,10 @@ class HomeController @Inject constructor(
                     )
             ))
 
-    @RequestMapping("/channels")
-    @ResponseBody
-    fun allChannels(model: Model): List<Channel> =
-            programs()
+    @RequestMapping("/channel")
+    fun allChannels(model: Model): String {
+        return "fragments/channel :: channel"
+    }
 
     @ModelAttribute("weekDays")
     fun weekDays(): List<String> =

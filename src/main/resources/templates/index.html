@@ -138,15 +138,16 @@
 
     function addShow(element) {
         $.post('/newShow', $('#newShow').serialize(), function () {
-            $.get("/channels", function (data) {
-                $.each(data, function (key, channel) {
-                    alert(data);
-                });
+            $.get("/channel", function (data) {
+                tvChannelToRefresh.replaceWith(data);
             });
         });
     }
 
+    var tvChannelToRefresh;
+
     function newShow(element) {
+        tvChannelToRefresh = $(element).parent().parent().parent();
         $.get("/genres", function (data) {
             var genresSelect = $('#newShowGenreSelect');
             $.each(data, function (key, genre) {
