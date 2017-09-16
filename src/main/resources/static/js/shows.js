@@ -1,15 +1,15 @@
 function addShow(element) {
-    $.post('/newShow', $('#newShow').serialize(), function () {
-        $.get("/channel", function (data) {
-            tvChannelToRefresh.replaceWith(data);
+    $.post('/newShow/' + channelIdToAddShow.toString(), $('#newShow').serialize(), function () {
+        $.post("/channels", function (data) {
+            $(".channels").html(data);
         });
     });
 }
 
-var tvChannelToRefresh;
+var channelIdToAddShow = 0;
 
 function newShow(element) {
-    tvChannelToRefresh = $(element).parent().parent().parent();
+    channelIdToAddShow = $(element).closest(".channel").find(".hide").html();
     $.post("/genres", function (data) {
         var genresSelect = $('#newShowGenreSelect');
         $.each(data, function (key, genre) {
@@ -21,17 +21,16 @@ function newShow(element) {
 }
 
 function deleteShow(element) {
-    tvChannelToRefresh = $(element).closest(".channel");
-    var tvId = $(element).closest(".row").siblings(".hide").html();
+    var channelId = $(element).closest(".channel").find(".hide").html();
     var id = $(element).siblings(".hide").html();
     $.ajax({
         url: "/deleteShow",
         type: "POST",
         contentType: "text/plain",
-        data: tvId.toString() + " " + id.toString()
+        data: channelId.toString() + " " + id.toString()
     }).done(function () {
-        $.get("/channel", function (data) {
-            tvChannelToRefresh.replaceWith(data);
+        $.post("/channels", function (data) {
+            $(".channels").html(data);
         });
     });
 }

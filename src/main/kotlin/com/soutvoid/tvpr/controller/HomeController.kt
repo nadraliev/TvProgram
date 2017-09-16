@@ -63,13 +63,13 @@ class HomeController @Inject constructor(
     fun allGenres(model: Model): List<Genre> = genresRepository.findAll().toList()
 
     /**
-     * render template with channels
+     * render template with one channels
      * @return fragment with channels
-     * @see fragments/channel.html
+     * @see fragments/channels.html
      */
-    @RequestMapping("/channel")
-    fun channel(model: Model): String {
-        return "fragments/channel :: channel"
+    @RequestMapping("/channels", method = arrayOf(RequestMethod.POST))
+    fun channels(model: Model): String {
+        return "fragments/channels :: channels"
     }
 
     /**
@@ -101,21 +101,26 @@ class HomeController @Inject constructor(
     /**
      * add new show to db
      * @param[showForm] form from user with information about new show
+     * @param[id] id of channel to add show to
      * @return operation successful
      * @see Show
      */
-    @RequestMapping("/newShow",
+    @RequestMapping("/newShow/{id}",
             method = arrayOf(RequestMethod.POST),
             consumes = arrayOf(MediaType.APPLICATION_FORM_URLENCODED_VALUE))
     @ResponseBody
-    fun newShow(@ModelAttribute("ShowForm") showForm: ShowForm): Boolean {
-        showsRepository.save(showForm.getShow())
+    fun newShow(
+            @PathVariable id: String,
+            @ModelAttribute("ShowForm") showForm: ShowForm): Boolean {
+        var channel = channelsRepository.findOne(id.toLong())
+        channel?.schedule?.shows?.add(showForm.getShow())
+        channelsRepository.save(channel)
         return true
     }
 
     /**
      * delete show from db
-     * @param[ids] id of channel to delete show from, id of show to delete separated with space. example: "1 5"
+     * @param[ids] id of channels to delete show from, id of show to delete separated with space. example: "1 5"
      * @return operation successful
      * @see Channel
      * @see Show
@@ -129,6 +134,19 @@ class HomeController @Inject constructor(
         var channel = channelsRepository.findOne(channelId)
         channel.schedule?.shows?.removeIf { it.id == showId }
         channelsRepository.save(channel)
+        return true
+    }
+
+    /**
+     * add new channels to db
+     * @param[name] name of new channels
+     * @return operation successful
+     * @see Channel
+     */
+    @RequestMapping("/newChannel", method = arrayOf(RequestMethod.POST))
+    @ResponseBody
+    fun newChannel(@RequestBody name: String): Boolean {
+        channelsRepository.save(Channel(name))
         return true
     }
 

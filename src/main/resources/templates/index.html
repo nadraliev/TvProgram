@@ -29,8 +29,8 @@
 
 
         <!-- Channels and schedules -->
-        <div class="col s12 m8 l9">
-            <div th:replace="fragments/channel :: channel"></div>
+        <div class="col s12 m8 l9 channels">
+            <div th:replace="fragments/channels :: channels"></div>
         </div>
 
     </div>
@@ -90,6 +90,23 @@
         </form>
     </div>
 
+    <!-- new channels modal -->
+    <div class="row">
+        <form id="newChannel" class="modal col s8 offset-s1 l4 offset-l2">
+            <div class="modal-content">
+                <h4>New channels</h4>
+                <div class="input-field">
+                    <input id="newChannelName" name="name" type="text" class="validate"/>
+                    <label for="newChannelName">Name</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a onclick="addChannel(this)" href="#!"
+                   class="modal-action modal-close waves-effect waves-green btn-flat">ADD</a>
+            </div>
+        </form>
+    </div>
+
 </main>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"
@@ -116,5 +133,6 @@
 </script>
 <script type="text/javascript" src="js/genres.js"></script>
 <script type="text/javascript" src="js/shows.js"></script>
+<script type="text/javascript" src="js/channels.js"></script>
 </body>
 </html>
