@@ -6,7 +6,18 @@
     border-width: 0;
 }
 .daySchedule {
-    height: 600px;
+    overflow: hidden;
+    height: auto;
+    margin-left: 0px !important;
+}
+
+.row {
+    display: -webkit-flex;
+    -webkit-flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .card-content {
