@@ -8,8 +8,10 @@
 .daySchedule {
     height: 600px;
 }
-.card-panel.small {
-    padding: 10px;
+
+.card-content {
+    padding: 10px !important;
+    word-wrap: break-word;
 }
 
 .vertalign-wrapper {
@@ -20,4 +22,7 @@
 .vertalign-center {
     display: table-cell;
     vertical-align: middle;
+}
+
+.channel {
 }

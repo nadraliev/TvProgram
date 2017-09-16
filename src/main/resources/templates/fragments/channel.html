@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<div th:each="channel: ${channels}" th:fragment="channel">
+<div th:each="channel: ${channels}" th:fragment="channel" class="channel">
     <div class="row vertalign-wrapper">
         <h5 th:text="${channel.name}" class="left"></h5>
         <div class="row vertalign-center">
@@ -18,12 +18,16 @@
         <div class="col s12 m4 l3 daySchedule" th:each="day, iter: ${weekDays}">
             <h6 th:text="${day}"></h6>
             <div style="height: 2px" class="teal"></div>
-            <div class="card-panel small" th:each="show : ${channel.schedule.shows}"
+            <div class="card" th:each="show : ${channel.schedule.shows}"
                  th:if="${iter.index == show.dayOfWeek}">
-                <span th:text="${show.name}"></span><br/>
-                <span th:text="${show.getFormattedTime(show.startTime)}"></span>
-                <span> - </span>
-                <span th:text="${show.getFormattedTime(show.endTime)}"></span>
+                <div class="card-content">
+                    <i onclick="deleteShow(this)" class="material-icons right">close</i>
+                    <span th:text="${show.id}" class="hide"></span>
+                    <span th:text="${show.name}"></span><br/>
+                    <span th:text="${show.getFormattedTime(show.startTime)}"></span>
+                    <span> - </span>
+                    <span th:text="${show.getFormattedTime(show.endTime)}"></span>
+                </div>
             </div>
         </div>
     </div>

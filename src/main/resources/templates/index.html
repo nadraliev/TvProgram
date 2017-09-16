@@ -30,29 +30,7 @@
 
         <!-- Channels and schedules -->
         <div class="col s12 m8 l9">
-            <div th:each="channel: ${channels}">
-                <div class="row vertalign-wrapper">
-                    <h5 th:text="${channel.name}" class="left"></h5>
-                    <div class="row vertalign-center">
-                        <a class="waves-effect waves-light btn modal-trigger right" onclick="newShow(this)"
-                           href="#newShow"><i
-                                class="material-icons right">add</i>New show</a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s12 m4 l3 daySchedule" th:each="day, iter: ${weekDays}">
-                        <h6 th:text="${day}"></h6>
-                        <div style="height: 2px" class="teal"></div>
-                        <div class="card-panel small" th:each="show : ${channel.schedule.shows}"
-                             th:if="${iter.index == show.dayOfWeek}">
-                            <span th:text="${show.name}"></span><br/>
-                            <span th:text="${show.getFormattedTime(show.startTime)}"></span>
-                            <span> - </span>
-                            <span th:text="${show.getFormattedTime(show.endTime)}"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div th:replace="fragments/channel :: channel"></div>
         </div>
 
     </div>
@@ -135,29 +113,8 @@
             } //Function for after opening timepicker
         });
     });
-
-    function addShow(element) {
-        $.post('/newShow', $('#newShow').serialize(), function () {
-            $.get("/channel", function (data) {
-                tvChannelToRefresh.replaceWith(data);
-            });
-        });
-    }
-
-    var tvChannelToRefresh;
-
-    function newShow(element) {
-        tvChannelToRefresh = $(element).parent().parent().parent();
-        $.get("/genres", function (data) {
-            var genresSelect = $('#newShowGenreSelect');
-            $.each(data, function (key, genre) {
-                var newRow = '<option value="' + genre.name + '">' + genre.name + '</option>';
-                genresSelect.append(newRow);
-            });
-            $('select').material_select();
-        });
-    }
 </script>
 <script type="text/javascript" src="js/genres.js"></script>
+<script type="text/javascript" src="js/shows.js"></script>
 </body>
 </html>

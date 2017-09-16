@@ -34,12 +34,12 @@ class HomeController @Inject constructor(
             listOf(Channel(
                     "Test channel",
                     ChannelSchedule(
-                            showsRepository.findAll().toMutableList()
+                            showsRepository.findAll().sortedBy { it.startTime }.toMutableList()
                     )
             ))
 
     @RequestMapping("/channel")
-    fun allChannels(model: Model): String {
+    fun channel(model: Model): String {
         return "fragments/channel :: channel"
     }
 
@@ -72,6 +72,13 @@ class HomeController @Inject constructor(
     @ResponseBody
     fun newShow(@ModelAttribute("ShowForm") showForm: ShowForm): Boolean {
         showsRepository.save(showForm.getShow())
+        return true
+    }
+
+    @RequestMapping("/deleteShow", method = arrayOf(RequestMethod.POST))
+    @ResponseBody
+    fun deleteShow(@RequestBody id: String): Boolean {
+        showsRepository.delete(id.toLong())
         return true
     }
 
