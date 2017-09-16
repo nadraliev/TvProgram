@@ -23,34 +23,61 @@ class HomeController @Inject constructor(
         var genresRepository: GenresRepository,
         var showsRepository: ShowsRepository,
         var channelsRepository: ChannelsRepository) {
-
+    /**
+     * @return list of all genres in db
+     * @see Genre
+     */
     @ModelAttribute("genres")
     fun genres(): List<Genre> = genresRepository.findAll().toList()
 
-    @RequestMapping("/genres")
+    /**
+     * @return list of all channels in db
+     * @see Channel
+     */
+    @ModelAttribute("channels")
+    fun programs(): List<Channel> =
+            channelsRepository.findAll().toList()
+
+    /**
+     * @return list of all week days
+     * @see DayOfWeek
+     */
+    @ModelAttribute("weekDays")
+    fun weekDays(): List<String> =
+            DayOfWeek.values().map { it.toString().capitalize() }
+
+    /**
+     * index
+     */
+    @RequestMapping(method = arrayOf(RequestMethod.GET))
+    fun index(model: Model): String {
+        return "index"
+    }
+
+    /**
+     * endpoint to get all genres in db
+     * @see Genre
+     */
+    @RequestMapping("/genres", method = arrayOf(RequestMethod.POST))
     @ResponseBody
     fun allGenres(model: Model): List<Genre> = genresRepository.findAll().toList()
 
-    @ModelAttribute("channels")
-    fun programs(): List<Channel> {
-        var result = channelsRepository.findAll().toList()
-        return result
-    }
-
+    /**
+     * render template with channels
+     * @return fragment with channels
+     * @see fragments/channel.html
+     */
     @RequestMapping("/channel")
     fun channel(model: Model): String {
         return "fragments/channel :: channel"
     }
 
-    @ModelAttribute("weekDays")
-    fun weekDays(): List<String> =
-            DayOfWeek.values().map { it.toString().capitalize() }
-
-    @RequestMapping(method = arrayOf(RequestMethod.GET))
-    fun index(model: Model) : String {
-        return "index"
-    }
-
+    /**
+     * add new genre to db
+     * @param[name] name of new genre
+     * @return operation successful
+     * @see Genre
+     */
     @RequestMapping("/newGenre", method = arrayOf(RequestMethod.POST))
     @ResponseBody
     fun newGenre(@RequestBody name: String): Boolean {
@@ -66,6 +93,12 @@ class HomeController @Inject constructor(
         return true
     }
 
+    /**
+     * delete genre from db
+     * @param[index] index of genre to remove
+     * @return operation successful
+     * @see Genre
+     */
     @RequestMapping("/deleteGenre", method = arrayOf(RequestMethod.POST))
     @ResponseBody
     fun deleteGenre(@RequestBody index: String): Boolean {
@@ -73,6 +106,12 @@ class HomeController @Inject constructor(
         return true
     }
 
+    /**
+     * add new show to db
+     * @param[showForm] form from user with information about new show
+     * @return operation successful
+     * @see Show
+     */
     @RequestMapping("/newShow",
             method = arrayOf(RequestMethod.POST),
             consumes = arrayOf(MediaType.APPLICATION_FORM_URLENCODED_VALUE))
@@ -82,6 +121,13 @@ class HomeController @Inject constructor(
         return true
     }
 
+    /**
+     * delete show from db
+     * @param[ids] id of channel to delete show from, id of show to delete separated with space. example: "1 5"
+     * @return operation successful
+     * @see Channel
+     * @see Show
+     */
     @RequestMapping("/deleteShow", method = arrayOf(RequestMethod.POST))
     @ResponseBody
     fun deleteShow(@RequestBody ids: String): Boolean {
