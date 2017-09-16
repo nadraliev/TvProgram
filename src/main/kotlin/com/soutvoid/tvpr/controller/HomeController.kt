@@ -81,14 +81,6 @@ class HomeController @Inject constructor(
     @RequestMapping("/newGenre", method = arrayOf(RequestMethod.POST))
     @ResponseBody
     fun newGenre(@RequestBody name: String): Boolean {
-        channelsRepository.save(
-                Channel(
-                        "Test channel",
-                        ChannelSchedule(
-                                mutableSetOf(Show("shit", 0, 0, 0))
-                        )
-                )
-        )
         genresRepository.save(Genre(name))
         return true
     }
