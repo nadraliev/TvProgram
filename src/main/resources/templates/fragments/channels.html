@@ -28,7 +28,7 @@
                         <a onclick="deleteShow(this)" href="#"><i class="material-icons md-dark right">close</i></a>
                         <span th:text="${show.id}" class="hide"></span>
                         <span th:text="${show.name}"></span><br/>
-                        <span th:text="${show.genreName}"></span><br/>
+                        <span th:text="${show.genre.name}"></span><br/>
                         <span th:text="${show.getFormattedTime(show.startTime)}"></span>
                         <span> - </span>
                         <span th:text="${show.getFormattedTime(show.endTime)}"></span>

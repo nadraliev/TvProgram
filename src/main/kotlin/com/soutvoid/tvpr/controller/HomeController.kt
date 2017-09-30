@@ -113,7 +113,7 @@ class HomeController @Inject constructor(
             @PathVariable id: String,
             @ModelAttribute("ShowForm") showForm: ShowForm): Boolean {
         var channel = channelsRepository.findOne(id.toLong())
-        channel?.schedule?.shows?.add(showForm.getShow())
+        channel?.schedule?.shows?.add(showForm.getShow(genres()))
         channelsRepository.save(channel)
         return true
     }

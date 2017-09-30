@@ -1,5 +1,6 @@
 package com.soutvoid.tvpr.domain.show
 
+import com.soutvoid.tvpr.domain.genre.Genre
 import java.io.Serializable
 
 data class ShowForm(
@@ -9,13 +10,13 @@ data class ShowForm(
         var endTime: String = "00:00",
         var genreName: String = ""
 ) : Serializable {
-    fun getShow(): Show =
+    fun getShow(allGenres: List<Genre>): Show =
             Show(
                     name,
                     dayOfWeek,
                     getMinutes(startTime).toLong(),
                     getMinutes(endTime).toLong(),
-                    genreName
+                    allGenres.find { it.name == genreName }
             )
 
     fun getMinutes(time: String): Int =
