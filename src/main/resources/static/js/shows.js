@@ -12,6 +12,8 @@ function newShow(element) {
     channelIdToAddShow = $(element).closest(".channel").find(".hide").html();
     $.post("/genres", function (data) {
         var genresSelect = $('#newShowGenreSelect');
+        genresSelect.html("");
+        $('select').material_select();
         $.each(data, function (key, genre) {
             var newRow = '<option value="' + genre.name + '">' + genre.name + '</option>';
             genresSelect.append(newRow);
