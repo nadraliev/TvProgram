@@ -94,7 +94,14 @@ class HomeController @Inject constructor(
     @RequestMapping("/deleteGenre", method = arrayOf(RequestMethod.POST))
     @ResponseBody
     fun deleteGenre(@RequestBody index: String): Boolean {
-        genresRepository.delete(genresRepository.findAll().toList()[index.toInt()])
+        val genre = genresRepository.findAll().toList()[index.toInt()]
+        val shows = showsRepository.findAll().filter { it.genre?.equals(genre) ?: false }
+        shows.forEach {
+            var channel = channelsRepository.findOne(it.channelId)
+            channel.schedule?.shows?.removeIf { it.id == it.id }
+            channelsRepository.save(channel)
+        }
+        genresRepository.delete(genre)
         return true
     }
 
@@ -113,7 +120,9 @@ class HomeController @Inject constructor(
             @PathVariable id: String,
             @ModelAttribute("ShowForm") showForm: ShowForm): Boolean {
         var channel = channelsRepository.findOne(id.toLong())
-        channel?.schedule?.shows?.add(showForm.getShow(genres()))
+        var show = showForm.getShow(genres())
+        show.channelId = channel.id
+        channel?.schedule?.shows?.add(show)
         channelsRepository.save(channel)
         return true
     }

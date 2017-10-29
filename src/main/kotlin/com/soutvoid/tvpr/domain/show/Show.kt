@@ -14,6 +14,7 @@ class Show(
         var endTime: Long = 0,  //in minutes
         @ManyToOne
         var genre: Genre? = null,
+        var channelId: Long = 0,
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
         @Column(name = "show_id")
