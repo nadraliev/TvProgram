@@ -81,7 +81,8 @@ class HomeController @Inject constructor(
     @RequestMapping("/newGenre", method = arrayOf(RequestMethod.POST))
     @ResponseBody
     fun newGenre(@RequestBody name: String): Boolean {
-        genresRepository.save(Genre(name))
+        if (name.trim().isNotEmpty() && genres().find { it.name == name } == null)
+            genresRepository.save(Genre(name))
         return true
     }
 
@@ -122,8 +123,12 @@ class HomeController @Inject constructor(
         var channel = channelsRepository.findOne(id.toLong())
         var show = showForm.getShow(genres())
         show.channelId = channel.id
-        channel?.schedule?.shows?.add(show)
-        channelsRepository.save(channel)
+        if (show.name.trim().isNotEmpty() && show.dayOfWeek in 0..6
+                && show.startTime < show.endTime
+                && genres().find { it.name == show.genre?.name } != null) {
+            channel?.schedule?.shows?.add(show)
+            channelsRepository.save(channel)
+        }
         return true
     }
 
@@ -155,7 +160,8 @@ class HomeController @Inject constructor(
     @RequestMapping("/newChannel", method = arrayOf(RequestMethod.POST))
     @ResponseBody
     fun newChannel(@RequestBody name: String): Boolean {
-        channelsRepository.save(Channel(name))
+        if (name.trim().isNotEmpty() && channelsRepository.findAll().find { it.name == name } == null)
+            channelsRepository.save(Channel(name))
         return true
     }
 

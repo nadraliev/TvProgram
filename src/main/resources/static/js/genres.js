@@ -6,9 +6,11 @@ function addGenre(element) {
         contentType: "text/plain",
         data: nameField.val()
     });
-    var genresLis = $('#genres').find("li");
-    var newLine = '<li class="collection-item"><div>'+nameField.val()+'<a onclick="deleteGenre(this)"  href="#!" class="secondary-content"><i class="material-icons md-dark">clear</i></a></div></li>';
-    genresLis.last().before(newLine);
+    if (nameField.val().trim() != "") {
+        var genresLis = $('#genres').find("li");
+        var newLine = '<li class="collection-item"><div>' + nameField.val() + '<a onclick="deleteGenre(this)"  href="#!" class="secondary-content"><i class="material-icons md-dark">clear</i></a></div></li>';
+        genresLis.last().before(newLine);
+    }
     nameField.val("");
 }
 
