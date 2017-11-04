@@ -96,12 +96,12 @@ class HomeController @Inject constructor(
     @ResponseBody
     fun deleteGenre(@RequestBody index: String): Boolean {
         val genre = genresRepository.findAll().toList()[index.toInt()]
-        val shows = showsRepository.findAll().filter { it.genre?.equals(genre) ?: false }
-        shows.forEach {
-            var channel = channelsRepository.findOne(it.channelId)
-            channel.schedule?.shows?.removeIf { it.id == it.id }
-            channelsRepository.save(channel)
-        }
+//        val shows = showsRepository.findAll().filter { it.genre?.equals(genre) ?: false }
+//        shows.forEach {
+//            var channel = channelsRepository.findOne(it.channelId)
+//            channel.schedule?.shows?.removeIf { it.id == it.id }
+//            channelsRepository.save(channel)
+//        }
         genresRepository.delete(genre)
         return true
     }
@@ -123,11 +123,13 @@ class HomeController @Inject constructor(
         var channel = channelsRepository.findOne(id.toLong())
         var show = showForm.getShow(genres())
         show.channelId = channel.id
+        show.schedule = channel.schedule
         if (show.name.trim().isNotEmpty() && show.dayOfWeek in 0..6
                 && show.startTime < show.endTime
                 && genres().find { it.name == show.genre?.name } != null) {
-            channel?.schedule?.shows?.add(show)
-            channelsRepository.save(channel)
+//            channel?.schedule?.shows?.add(show)
+//            channelsRepository.save(channel)
+            showsRepository.save(show)
         }
         return true
     }

@@ -1,12 +1,13 @@
 package com.soutvoid.tvpr.domain.show
 
 import com.soutvoid.tvpr.domain.genre.Genre
+import com.soutvoid.tvpr.domain.schedule.ChannelSchedule
+import jdk.nashorn.internal.ir.annotations.Ignore
 import org.springframework.web.bind.annotation.ModelAttribute
 import java.io.Serializable
 import javax.persistence.*
 
 @Entity
-@Table(name = "show")
 class Show(
         var name: String = "",
         var dayOfWeek: Int = 0,
@@ -14,10 +15,12 @@ class Show(
         var endTime: Long = 0,  //in minutes
         @ManyToOne
         var genre: Genre? = null,
+        @ManyToOne
+        @Ignore
+        var schedule: ChannelSchedule? = null,
         var channelId: Long = 0,
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
-        @Column(name = "show_id")
         var id: Long = 0
 ) : Serializable {
 
