@@ -1,8 +1,8 @@
 function addGenre(element) {
     var nameField = $('#newGenreName');
     $.ajax({
-        url: "/newGenre",
-        type: "POST",
+        url: "/genres",
+        type: "PUT",
         contentType: "text/plain",
         data: nameField.val()
     });
@@ -19,10 +19,8 @@ function deleteGenre(element) {
     var li = $(element).closest("li");
     var index = $(li.parent().children()).index(li) - 1;
     $.ajax({
-        url: "/deleteGenre",
-        type: "POST",
-        contentType: "text/plain",
-        data: index.toString()
+        url: "/genres/" + index,
+        type: "DELETE"
     });
     $($(element).parent().parent(), genresList).remove();
 }

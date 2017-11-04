@@ -1,8 +1,8 @@
 function addChannel(element) {
     var nameField = $('#newChannelName');
     $.ajax({
-        url: "/newChannel",
-        type: "POST",
+        url: "/channels",
+        type: "PUT",
         contentType: "text/plain",
         data: nameField.val()
     }).done(function () {
@@ -16,10 +16,8 @@ function addChannel(element) {
 function deleteChannel(element) {
     var channelId = $(element).closest(".channel").find(".hide").html();
     $.ajax({
-        url: "/deleteChannel",
-        type: "POST",
-        contentType: "text/plain",
-        data: channelId.toString()
+        url: "/channels/" + channelId,
+        type: "DELETE"
     }).done(function () {
         $.post("/channels", function (data) {
             $(".channels").html(data);

@@ -1,5 +1,10 @@
 function addShow(element) {
-    $.post('/newShow/' + channelIdToAddShow.toString(), $('#newShow').serialize(), function () {
+    $.ajax({
+        url: '/channels/' + channelIdToAddShow.toString() + '/shows',
+        type: "PUT",
+        contentType: "application/x-www-form-urlencoded",
+        data: $('#newShow').serialize()
+    }).done(function () {
         $.post("/channels", function (data) {
             $(".channels").html(data);
         });
@@ -24,12 +29,10 @@ function newShow(element) {
 
 function deleteShow(element) {
     var channelId = $(element).closest(".channel").find(".hide").html();
-    var id = $(element).siblings(".hide").html();
+    var showId = $(element).siblings(".hide").html();
     $.ajax({
-        url: "/deleteShow",
-        type: "POST",
-        contentType: "text/plain",
-        data: id.toString()
+        url: "/channels/" + channelId + "/shows/" + showId,
+        type: "DELETE"
     }).done(function () {
         $.post("/channels", function (data) {
             $(".channels").html(data);

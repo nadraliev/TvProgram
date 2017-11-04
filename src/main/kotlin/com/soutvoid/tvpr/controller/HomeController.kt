@@ -23,6 +23,7 @@ class HomeController @Inject constructor(
         var genresRepository: GenresRepository,
         var showsRepository: ShowsRepository,
         var channelsRepository: ChannelsRepository) {
+
     /**
      * @return list of all genres in db
      * @see Genre
@@ -65,7 +66,7 @@ class HomeController @Inject constructor(
     /**
      * render template with one channels
      * @return fragment with channels
-     * @see fragments/channels.html
+     * @see templates/fragments/channels.html
      */
     @RequestMapping("/channels", method = arrayOf(RequestMethod.POST))
     fun channels(model: Model): String {
@@ -78,7 +79,7 @@ class HomeController @Inject constructor(
      * @return operation successful
      * @see Genre
      */
-    @RequestMapping("/newGenre", method = arrayOf(RequestMethod.POST))
+    @RequestMapping("/genres", method = arrayOf(RequestMethod.PUT))
     @ResponseBody
     fun newGenre(@RequestBody name: String): Boolean {
         if (name.trim().isNotEmpty() && genres().find { it.name == name } == null)
@@ -92,9 +93,9 @@ class HomeController @Inject constructor(
      * @return operation successful
      * @see Genre
      */
-    @RequestMapping("/deleteGenre", method = arrayOf(RequestMethod.POST))
+    @RequestMapping("/genres/{index}", method = arrayOf(RequestMethod.DELETE))
     @ResponseBody
-    fun deleteGenre(@RequestBody index: String): Boolean {
+    fun deleteGenre(@PathVariable index: String): Boolean {
         val genre = genresRepository.findAll().toList()[index.toInt()]
         genresRepository.delete(genre)
         return true
@@ -107,8 +108,8 @@ class HomeController @Inject constructor(
      * @return operation successful
      * @see Show
      */
-    @RequestMapping("/newShow/{id}",
-            method = arrayOf(RequestMethod.POST),
+    @RequestMapping("/channels/{id}/shows",
+            method = arrayOf(RequestMethod.PUT),
             consumes = arrayOf(MediaType.APPLICATION_FORM_URLENCODED_VALUE))
     @ResponseBody
     fun newShow(
@@ -132,9 +133,9 @@ class HomeController @Inject constructor(
      * @see Channel
      * @see Show
      */
-    @RequestMapping("/deleteShow", method = arrayOf(RequestMethod.POST))
+    @RequestMapping("/channels/{id}/shows/{id}", method = arrayOf(RequestMethod.DELETE))
     @ResponseBody
-    fun deleteShow(@RequestBody id: String): Boolean {
+    fun deleteShow(@PathVariable id: String): Boolean {
         showsRepository.delete(id.toLong())
         return true
     }
@@ -145,7 +146,7 @@ class HomeController @Inject constructor(
      * @return operation successful
      * @see Channel
      */
-    @RequestMapping("/newChannel", method = arrayOf(RequestMethod.POST))
+    @RequestMapping("/channels", method = arrayOf(RequestMethod.PUT))
     @ResponseBody
     fun newChannel(@RequestBody name: String): Boolean {
         if (name.trim().isNotEmpty() && channelsRepository.findAll().find { it.name == name } == null)
@@ -159,9 +160,9 @@ class HomeController @Inject constructor(
      * @return operation successful
      * @see Channel
      */
-    @RequestMapping("/deleteChannel", method = arrayOf(RequestMethod.POST))
+    @RequestMapping("/channels/{id}", method = arrayOf(RequestMethod.DELETE))
     @ResponseBody
-    fun deleteChannel(@RequestBody id: String): Boolean {
+    fun deleteChannel(@PathVariable id: String): Boolean {
         channelsRepository.delete(id.toLong())
         return true
     }
