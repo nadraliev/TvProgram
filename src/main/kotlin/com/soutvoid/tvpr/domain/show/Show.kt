@@ -18,7 +18,6 @@ class Show(
         @ManyToOne
         @Ignore
         var schedule: ChannelSchedule? = null,
-        var channelId: Long = 0,
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
         var id: Long = 0

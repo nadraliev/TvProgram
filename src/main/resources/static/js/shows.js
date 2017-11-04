@@ -29,7 +29,7 @@ function deleteShow(element) {
         url: "/deleteShow",
         type: "POST",
         contentType: "text/plain",
-        data: channelId.toString() + " " + id.toString()
+        data: id.toString()
     }).done(function () {
         $.post("/channels", function (data) {
             $(".channels").html(data);

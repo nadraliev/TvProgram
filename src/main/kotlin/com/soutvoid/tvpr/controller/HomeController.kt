@@ -96,12 +96,6 @@ class HomeController @Inject constructor(
     @ResponseBody
     fun deleteGenre(@RequestBody index: String): Boolean {
         val genre = genresRepository.findAll().toList()[index.toInt()]
-//        val shows = showsRepository.findAll().filter { it.genre?.equals(genre) ?: false }
-//        shows.forEach {
-//            var channel = channelsRepository.findOne(it.channelId)
-//            channel.schedule?.shows?.removeIf { it.id == it.id }
-//            channelsRepository.save(channel)
-//        }
         genresRepository.delete(genre)
         return true
     }
@@ -122,13 +116,10 @@ class HomeController @Inject constructor(
             @ModelAttribute("ShowForm") showForm: ShowForm): Boolean {
         var channel = channelsRepository.findOne(id.toLong())
         var show = showForm.getShow(genres())
-        show.channelId = channel.id
         show.schedule = channel.schedule
         if (show.name.trim().isNotEmpty() && show.dayOfWeek in 0..6
                 && show.startTime < show.endTime
                 && genres().find { it.name == show.genre?.name } != null) {
-//            channel?.schedule?.shows?.add(show)
-//            channelsRepository.save(channel)
             showsRepository.save(show)
         }
         return true
@@ -136,20 +127,15 @@ class HomeController @Inject constructor(
 
     /**
      * delete show from db
-     * @param[ids] id of channels to delete show from, id of show to delete separated with space. example: "1 5"
+     * @param[id] id of show to delete
      * @return operation successful
      * @see Channel
      * @see Show
      */
     @RequestMapping("/deleteShow", method = arrayOf(RequestMethod.POST))
     @ResponseBody
-    fun deleteShow(@RequestBody ids: String): Boolean {
-        var idsArray = ids.split(" ")
-        var channelId = idsArray.first().toLong()
-        var showId = idsArray.last().toLong()
-        var channel = channelsRepository.findOne(channelId)
-        channel.schedule?.shows?.removeIf { it.id == showId }
-        channelsRepository.save(channel)
+    fun deleteShow(@RequestBody id: String): Boolean {
+        showsRepository.delete(id.toLong())
         return true
     }
 
