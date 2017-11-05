@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- new channels modal -->
+<div class="row" th:fragment="new_channel_modal">
+    <form id="newChannel" class="modal col s8 offset-s1 l4 offset-l2">
+        <div class="modal-content">
+            <h4>New channels</h4>
+            <div class="input-field">
+                <input id="newChannelName" name="name" type="text" class="validate"/>
+                <label for="newChannelName">Name</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a onclick="addChannel(this)" href="#!"
+               class="modal-action modal-close waves-effect waves-green btn-flat">ADD</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

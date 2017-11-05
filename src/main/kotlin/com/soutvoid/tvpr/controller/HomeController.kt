@@ -59,9 +59,9 @@ class HomeController @Inject constructor(
      * endpoint to get all genres in db
      * @see Genre
      */
-    @RequestMapping("/genres", method = arrayOf(RequestMethod.POST))
+    @RequestMapping("/genres/names", method = arrayOf(RequestMethod.GET))
     @ResponseBody
-    fun allGenres(model: Model): List<Genre> = genresRepository.findAll().toList()
+    fun allGenresNames(model: Model): List<String> = genresRepository.findAll().map { it.name }.toList()
 
     /**
      * render template with one channels

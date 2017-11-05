@@ -12,20 +12,8 @@
     <div class="row">
 
         <!-- Genres list -->
-        <div class="col s12 m4 l3">
-            <ul id="genres" class="collection genres">
-                <li class="collection-header"><h5>Genres</h5></li>
-                <li th:each="genre: ${genres}" class="collection-item">
-                    <div>
-                        <span th:text="${genre.name}"></span>
-                        <a onclick="deleteGenre(this)" href="#!" class="secondary-content"><i
-                                class="material-icons md-dark">clear</i></a>
-                    </div>
-                </li>
-                <li class="collection-item">
-                    <a class="waves_effect waves-light btn modal-trigger" href="#newGenre">New</a>
-                </li>
-            </ul>
+        <div class="col s12 m4 l3 genres">
+            <div th:replace="fragments/genres::genres"></div>
         </div>
 
 
@@ -37,76 +25,11 @@
     </div>
 
 
-    <!-- New genre modal -->
-    <div class="row">
-        <div id="newGenre" class="modal col s8 offset-s1 l4 offset-l2">
-            <div class="modal-content">
-                <h4>New genre</h4>
-                <div class="input-field">
-                    <input id="newGenreName" type="text" class="validate"/>
-                    <label for="newGenreName">Name</label>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <a onclick="addGenre(this)" href="#!"
-                   class="modal-action modal-close waves-effect waves-green btn-flat">ADD</a>
-            </div>
-        </div>
-    </div>
+    <div th:replace="fragments/genres_modal::new_genre_modal"></div>
 
+    <div th:replace="fragments/shows_modal::new_show_modal"></div>
 
-    <!-- New show modal -->
-    <div class="row">
-        <form id="newShow" class="modal modal-fixed-footer col s8 offset-s1 l4 offset-l2">
-            <div class="modal-content">
-                <h4>New show</h4>
-                <div class="input-field">
-                    <input id="newShowName" name="name" type="text" class="validate"/>
-                    <label for="newShowName">Name</label>
-                </div>
-                <div class="input-field">
-                    <select name="dayOfWeek">
-                        <option th:each="day, iter: ${weekDays}" th:value="${iter.index}" th:text="${day}"></option>
-                    </select>
-                    <label>Weekday</label>
-                </div>
-                <div class="input-field">
-                    <input id="newShowStartTime" name="startTime" type="text" class="picker--time"/>
-                    <label for="newShowStartTime">Start time</label>
-                </div>
-                <div class="input-field">
-                    <input id="newShowEndTime" name="endTime" type="text" class="picker--time"/>
-                    <label for="newShowEndTime">End time</label>
-                </div>
-                <div class="input-field">
-                    <select id="newShowGenreSelect" name="genreName">
-                    </select>
-                    <label>Genre</label>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <a onclick="addShow(this)" href="#!"
-                   class="modal-action modal-close waves-effect waves-green btn-flat">ADD</a>
-            </div>
-        </form>
-    </div>
-
-    <!-- new channels modal -->
-    <div class="row">
-        <form id="newChannel" class="modal col s8 offset-s1 l4 offset-l2">
-            <div class="modal-content">
-                <h4>New channels</h4>
-                <div class="input-field">
-                    <input id="newChannelName" name="name" type="text" class="validate"/>
-                    <label for="newChannelName">Name</label>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <a onclick="addChannel(this)" href="#!"
-                   class="modal-action modal-close waves-effect waves-green btn-flat">ADD</a>
-            </div>
-        </form>
-    </div>
+    <div th:replace="fragments/channels_modal::new_channel_modal"></div>
 
 </main>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>

@@ -15,12 +15,12 @@ var channelIdToAddShow = 0;
 
 function newShow(element) {
     channelIdToAddShow = $(element).closest(".channel").find(".hide").html();
-    $.post("/genres", function (data) {
+    $.get("/genres/names", function (data) {
         var genresSelect = $('#newShowGenreSelect');
         genresSelect.html("");
         $('select').material_select();
-        $.each(data, function (key, genre) {
-            var newRow = '<option value="' + genre.name + '">' + genre.name + '</option>';
+        $.each(data, function (key, genreName) {
+            var newRow = '<option value="' + genreName + '">' + genreName + '</option>';
             genresSelect.append(newRow);
         });
         $('select').material_select();
