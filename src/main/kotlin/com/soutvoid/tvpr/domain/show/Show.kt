@@ -12,7 +12,7 @@ class Show(
         var name: String = "",
         var dayOfWeek: Int = 0,
         var startTime: Long = 0,    //in minutes
-        var endTime: Long = 0,  //in minutes
+        var duration: Long = 0,  //in minutes
         @ManyToOne
         var genre: Genre? = null,
         @ManyToOne

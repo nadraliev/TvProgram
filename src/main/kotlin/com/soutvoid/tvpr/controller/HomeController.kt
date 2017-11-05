@@ -120,12 +120,15 @@ class HomeController @Inject constructor(
             @PathVariable id: String,
             @ModelAttribute("ShowForm") showForm: ShowForm): Boolean {
         var channel = channelsRepository.findOne(id.toLong())
-        var show = showForm.getShow(genres())
-        show.schedule = channel.schedule
-        if (show.name.trim().isNotEmpty() && show.dayOfWeek in 0..6
-                && show.startTime < show.endTime
-                && genres().find { it.name == show.genre?.name } != null) {
-            showsRepository.save(show)
+        try {
+            var show = showForm.getShow(genres())
+            show.schedule = channel.schedule
+            if (show.name.trim().isNotEmpty() && show.dayOfWeek in 0..6
+                    && genres().find { it.name == show.genre?.name } != null) {
+                showsRepository.save(show)
+            }
+        } catch (e: NumberFormatException) {
+            //input was not numbers
         }
         return true
     }

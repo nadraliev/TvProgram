@@ -29,9 +29,12 @@
                         <span th:text="${show.id}" class="hide"></span>
                         <span th:text="${show.name}"></span><br/>
                         <span th:text="${show.genre.name}"></span><br/>
-                        <span th:text="${show.getFormattedTime(show.startTime)}"></span>
-                        <span> - </span>
-                        <span th:text="${show.getFormattedTime(show.endTime)}"></span>
+                        <span th:text="${show.getFormattedTime(show.startTime)}"></span><br/>
+                        <span>Duration: </span>
+                        <span th:text="${show.duration / 60}"></span>
+                        <span> hours </span>
+                        <span th:text="${show.duration % 60}"></span>
+                        <span> minutes</span>
                     </div>
                 </div>
             </div>

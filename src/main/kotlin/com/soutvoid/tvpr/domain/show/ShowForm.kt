@@ -7,7 +7,8 @@ data class ShowForm(
         var name: String = "",
         var dayOfWeek: Int = 0,
         var startTime: String = "00:00",
-        var endTime: String = "00:00",
+        var hours: String = "0",
+        var minutes: String = "0",
         var genreName: String = ""
 ) : Serializable {
     fun getShow(allGenres: List<Genre>): Show =
@@ -15,7 +16,7 @@ data class ShowForm(
                     name,
                     dayOfWeek,
                     getMinutes(startTime).toLong(),
-                    getMinutes(endTime).toLong(),
+                    hours.toLong() * 60 + minutes.toLong(),
                     allGenres.find { it.name == genreName }
             )
 
