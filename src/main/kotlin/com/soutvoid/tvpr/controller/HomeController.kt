@@ -8,6 +8,7 @@ import com.soutvoid.tvpr.domain.schedule.ChannelSchedule
 import com.soutvoid.tvpr.domain.show.Show
 import com.soutvoid.tvpr.domain.show.ShowForm
 import com.soutvoid.tvpr.domain.show.ShowsRepository
+import com.soutvoid.tvpr.util.validate
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -86,7 +87,7 @@ class HomeController @Inject constructor(
     @RequestMapping("/genres", method = arrayOf(RequestMethod.PUT))
     @ResponseBody
     fun newGenre(@RequestBody name: String): Boolean {
-        if (name.trim().isNotEmpty() && genres().find { it.name == name } == null)
+        if (name.validate() && genres().find { it.name == name } == null)
             genresRepository.save(Genre(name))
         return true
     }
@@ -120,15 +121,10 @@ class HomeController @Inject constructor(
             @PathVariable id: String,
             @ModelAttribute("ShowForm") showForm: ShowForm): Boolean {
         var channel = channelsRepository.findOne(id.toLong())
-        try {
-            var show = showForm.getShow(genres())
+        if (showForm.validate(genres())) {
+            val show = showForm.getShow(genres())
             show.schedule = channel.schedule
-            if (show.name.trim().isNotEmpty() && show.dayOfWeek in 0..6
-                    && genres().find { it.name == show.genre?.name } != null) {
-                showsRepository.save(show)
-            }
-        } catch (e: NumberFormatException) {
-            //input was not numbers
+            showsRepository.save(show)
         }
         return true
     }
@@ -156,7 +152,7 @@ class HomeController @Inject constructor(
     @RequestMapping("/channels", method = arrayOf(RequestMethod.PUT))
     @ResponseBody
     fun newChannel(@RequestBody name: String): Boolean {
-        if (name.trim().isNotEmpty() && channelsRepository.findAll().find { it.name == name } == null)
+        if (name.validate() && channelsRepository.findAll().find { it.name == name } == null)
             channelsRepository.save(Channel(name))
         return true
     }
