@@ -5,8 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<div th:fragment="genres">
-    <ul id="genres" class="collection genres">
+<ul id="genres" class="collection genres" th:fragment="genres">
         <li class="collection-header"><h5>Genres</h5></li>
         <li th:each="genre: ${genres}" class="collection-item">
             <div>
@@ -19,6 +18,5 @@
             <a class="waves_effect waves-light btn modal-trigger" href="#newGenre">New</a>
         </li>
     </ul>
-</div>
 </body>
 </html>

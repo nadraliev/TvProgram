@@ -36,7 +36,7 @@ class HomeController @Inject constructor(
      * @see Channel
      */
     @ModelAttribute("channels")
-    fun programs(): List<Channel> =
+    fun channels(): List<Channel> =
             channelsRepository.findAll().toList()
 
     /**
@@ -63,15 +63,19 @@ class HomeController @Inject constructor(
     @ResponseBody
     fun allGenresNames(model: Model): List<String> = genresRepository.findAll().map { it.name }.toList()
 
+    @RequestMapping("genres", method = arrayOf(RequestMethod.GET))
+    fun genres(model: Model): String =
+            "fragments/genres::genres"
+
+
     /**
-     * render template with one channels
+     * render template with channels
      * @return fragment with channels
      * @see templates/fragments/channels.html
      */
     @RequestMapping("/channels", method = arrayOf(RequestMethod.POST))
-    fun channels(model: Model): String {
-        return "fragments/channels :: channels"
-    }
+    fun channels(model: Model): String =
+            "fragments/channels :: channels"
 
     /**
      * add new genre to db
