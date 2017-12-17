@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import java.time.DayOfWeek;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -68,6 +69,18 @@ public class HomeController {
 
     @RequestMapping(value = "/channels", method = RequestMethod.POST)
     public String channels(Model model) {
+        return "fragments/channels :: channels";
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public String search(Model model, @RequestParam("query") String query) {
+        if (Utils.validate(query)) {
+            List<Channel> channelList = channels().stream()
+                    .map(channel -> Utils.filter(channel, query))
+                    .filter(channel -> !channel.getSchedule().getShows().isEmpty())
+                    .collect(Collectors.toList());
+            model.addAttribute("channels", channelList);
+        }
         return "fragments/channels :: channels";
     }
 

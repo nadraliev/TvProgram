@@ -1,11 +1,13 @@
 package com.soutvoid.tvpr.util;
 
+import com.soutvoid.tvpr.domain.channel.Channel;
 import com.soutvoid.tvpr.domain.genre.Genre;
 import com.soutvoid.tvpr.domain.show.Show;
 import com.soutvoid.tvpr.domain.show.ShowForm;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Utils {
 
@@ -44,6 +46,15 @@ public class Utils {
                 Long.parseLong(showForm.getHours()) * 60 + Long.parseLong(showForm.getMinutes()),
                 allGenres.stream().filter(x -> x.getName().equals(showForm.getGenreName())).findFirst().get()
         );
+    }
+
+    public static Channel filter(Channel channel, String query) {
+        channel.getSchedule().setShows(
+                channel.getSchedule().getShows().stream().filter(show ->
+                        show.getName().equalsIgnoreCase(query) || show.getGenre().getName().equalsIgnoreCase(query)
+                ).collect(Collectors.toList())
+        );
+        return channel;
     }
 
 }
