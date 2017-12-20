@@ -58,7 +58,7 @@ public class HomeController {
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public String search(Model model, @RequestParam("query") String query) {
         if (Utils.validate(query)) {
-
+            List<Show> shows = showsRepository.findAllByNameOrGenreNameOrderByScheduleChannelNameAsc(query, query);
         }
         return "fragments/channels :: channels";
     }
