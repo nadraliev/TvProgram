@@ -1,10 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/main_head :: main_head">
     <meta charset="UTF-8"></meta>
     <title>Title</title>
 </head>
 <body>
-
+<div class="row flex" th:fragment="shows">
+    <div class="col s12 m4 l3 daySchedule" th:each="day, iter: ${weekDays}">
+        <h6 th:text="${day}"></h6>
+        <div style="height: 2px" class="teal"></div>
+        <div>
+            <div class="card"
+                 th:if="${iter.index == show.dayOfWeek}"
+                 th:each="show : ${shows}">
+                <div class="card-content">
+                    <a onclick="deleteShow(this)" href="#"><i class="material-icons md-dark right">close</i></a>
+                    <span th:text="${show.id}" class="hide"></span>
+                    <span th:text="${show.name}"></span><br/>
+                    <span th:text="${show.genre.name}"></span><br/>
+                    <span th:text="${show.schedule.channel.name}"></span><br/>
+                    <span th:text="${show.getFormattedTime(show.startTime)}"></span><br/>
+                    <span>Duration: </span>
+                    <span th:text="${show.duration / 60}"></span>
+                    <span> hours </span>
+                    <span th:text="${show.duration % 60}"></span>
+                    <span> minutes</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

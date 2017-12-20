@@ -59,6 +59,8 @@ public class HomeController {
     public String search(Model model, @RequestParam("query") String query) {
         if (Utils.validate(query)) {
             List<Show> shows = showsRepository.findAllByNameOrGenreNameOrderByScheduleChannelNameAsc(query, query);
+            model.addAttribute("shows", shows);
+            return "fragments/shows :: shows";
         }
         return "fragments/channels :: channels";
     }
