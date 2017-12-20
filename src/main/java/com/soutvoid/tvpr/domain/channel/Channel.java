@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class Channel implements Serializable {
 
     private String name = "";
-    private ChannelSchedule schedule = new ChannelSchedule();
+    private ChannelSchedule schedule = new ChannelSchedule(this);
     private long id;
 
     public Channel(String name, ChannelSchedule schedule, long id) {

@@ -48,25 +48,4 @@ public class Utils {
         );
     }
 
-    public static Channel filter(Channel channel, String query) {
-        int time = -1;
-        if (query.contains(":")) {
-            int hours = -1;
-            int minutes = -1;
-            try {
-                hours = Integer.parseInt(query.substring(0, query.indexOf(":")));
-                minutes = Integer.parseInt(query.substring(query.indexOf(":") + 1, query.length()));
-                time = hours * 60 + minutes;
-            } catch (Exception e) {}
-        }
-        final int searchTime = time;
-        channel.getSchedule().setShows(
-                channel.getSchedule().getShows().stream().filter(show ->
-                        show.getName().equalsIgnoreCase(query) || show.getGenre().getName().equalsIgnoreCase(query)
-                        || (searchTime >= 0 && searchTime >= show.getStartTime() && searchTime <= show.getStartTime() + show.getDuration())
-                ).collect(Collectors.toList())
-        );
-        return channel;
-    }
-
 }

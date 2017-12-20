@@ -58,11 +58,7 @@ public class HomeController {
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public String search(Model model, @RequestParam("query") String query) {
         if (Utils.validate(query)) {
-            List<Channel> channelList = channels().stream()
-                    .map(channel -> Utils.filter(channel, query))
-                    .filter(channel -> !channel.getSchedule().getShows().isEmpty())
-                    .collect(Collectors.toList());
-            model.addAttribute("channels", channelList);
+
         }
         return "fragments/channels :: channels";
     }
