@@ -1755,7 +1755,7 @@ if (Vel) {
           left: leftPosition + scrollXOffset
         });
 
-        // Show dropdown
+          // TvShow dropdown
         activates.slideDown({
           queue: false,
           duration: curr_options.inDuration,
@@ -8712,7 +8712,7 @@ if (Vel) {
     this.spanHours.click($.proxy(this.toggleView, this, 'hours'));
     this.spanMinutes.click($.proxy(this.toggleView, this, 'minutes'));
 
-    // Show or toggle
+      // TvShow or toggle
     input.on('focus.clockpicker click.clockpicker', $.proxy(this.show, this));
 
     // Build ticks
@@ -8895,7 +8895,7 @@ if (Vel) {
     vibrate: true // vibrate the device when dragging clock hand
   };
 
-  // Show or hide popover
+    // TvShow or hide popover
   ClockPicker.prototype.toggle = function () {
     this[this.isShown ? 'hide' : 'show']();
   };
@@ -8913,7 +8913,7 @@ if (Vel) {
     popover.show();
   };
 
-  // Show popover
+    // TvShow popover
   ClockPicker.prototype.show = function (e) {
     // Not show again
     if (this.isShown) {

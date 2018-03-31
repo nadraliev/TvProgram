@@ -4,18 +4,15 @@ import com.soutvoid.tvpr.domain.channel.Channel
 import com.soutvoid.tvpr.domain.channel.ChannelsRepository
 import com.soutvoid.tvpr.domain.genre.Genre
 import com.soutvoid.tvpr.domain.genre.GenresRepository
-import com.soutvoid.tvpr.domain.schedule.ChannelSchedule
-import com.soutvoid.tvpr.domain.show.Show
 import com.soutvoid.tvpr.domain.show.ShowForm
 import com.soutvoid.tvpr.domain.show.ShowsRepository
+import com.soutvoid.tvpr.domain.show.TvShow
 import com.soutvoid.tvpr.util.validate
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
-import org.springframework.web.servlet.ModelAndView
 import java.time.DayOfWeek
-import java.util.*
 import javax.inject.Inject
 
 @RequestMapping("/")
@@ -111,9 +108,9 @@ class HomeController @Inject constructor(
      * @param[showForm] form from user with information about new show
      * @param[id] id of channel to add show to
      * @return operation successful
-     * @see Show
+     * @see TvShow
      */
-    @RequestMapping("/channels/{id}/shows",
+    @RequestMapping("/channels/{id}/tvShows",
             method = arrayOf(RequestMethod.PUT),
             consumes = arrayOf(MediaType.APPLICATION_FORM_URLENCODED_VALUE))
     @ResponseBody
@@ -134,9 +131,9 @@ class HomeController @Inject constructor(
      * @param[id] id of show to delete
      * @return operation successful
      * @see Channel
-     * @see Show
+     * @see TvShow
      */
-    @RequestMapping("/channels/{id}/shows/{id}", method = arrayOf(RequestMethod.DELETE))
+    @RequestMapping("/channels/{id}/tvShows/{id}", method = arrayOf(RequestMethod.DELETE))
     @ResponseBody
     fun deleteShow(@PathVariable id: String): Boolean {
         showsRepository.delete(id.toLong())

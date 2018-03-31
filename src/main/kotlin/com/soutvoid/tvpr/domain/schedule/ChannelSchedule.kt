@@ -1,7 +1,6 @@
 package com.soutvoid.tvpr.domain.schedule
 
-import com.soutvoid.tvpr.domain.channel.Channel
-import com.soutvoid.tvpr.domain.show.Show
+import com.soutvoid.tvpr.domain.show.TvShow
 import java.io.Serializable
 import javax.persistence.*
 
@@ -9,7 +8,7 @@ import javax.persistence.*
 data class ChannelSchedule(
         @OneToMany(mappedBy = "schedule", cascade = arrayOf(CascadeType.ALL), orphanRemoval = true)
         @OrderBy("startTime ASC")
-        var shows: MutableList<Show> = mutableListOf(),
+        var tvShows: MutableList<TvShow> = mutableListOf(),
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
         var id: Long = 0

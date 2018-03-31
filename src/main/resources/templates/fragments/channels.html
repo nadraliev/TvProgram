@@ -20,10 +20,10 @@
         <div class="col s12 m4 l3 daySchedule" th:each="day, iter: ${weekDays}">
             <h6 th:text="${day}"></h6>
             <div style="height: 2px" class="teal"></div>
-            <div th:if="${channels.schedule != null and channels.schedule.shows != null}">
+            <div th:if="${channels.schedule != null and channels.schedule.tvShows != null}">
                 <div class="card"
                      th:if="${iter.index == show.dayOfWeek}"
-                     th:each="show : ${channels.schedule.shows}">
+                     th:each="show : ${channels.schedule.tvShows}">
                     <div class="card-content">
                         <a onclick="deleteShow(this)" href="#"><i class="material-icons md-dark right">close</i></a>
                         <span th:text="${show.id}" class="hide"></span>

@@ -1,6 +1,6 @@
 function addShow(element) {
     $.ajax({
-        url: '/channels/' + channelIdToAddShow.toString() + '/shows',
+        url: '/channels/' + channelIdToAddShow.toString() + '/tvShows',
         type: "PUT",
         contentType: "application/x-www-form-urlencoded",
         data: $('#newShow').serialize()
@@ -31,7 +31,7 @@ function deleteShow(element) {
     var channelId = $(element).closest(".channel").find(".hide").html();
     var showId = $(element).siblings(".hide").html();
     $.ajax({
-        url: "/channels/" + channelId + "/shows/" + showId,
+        url: "/channels/" + channelId + "/tvShows/" + showId,
         type: "DELETE"
     }).done(function () {
         $.post("/channels", function (data) {

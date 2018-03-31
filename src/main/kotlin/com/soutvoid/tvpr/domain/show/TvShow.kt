@@ -3,12 +3,11 @@ package com.soutvoid.tvpr.domain.show
 import com.soutvoid.tvpr.domain.genre.Genre
 import com.soutvoid.tvpr.domain.schedule.ChannelSchedule
 import jdk.nashorn.internal.ir.annotations.Ignore
-import org.springframework.web.bind.annotation.ModelAttribute
 import java.io.Serializable
 import javax.persistence.*
 
 @Entity
-class Show(
+class TvShow(
         var name: String = "",
         var dayOfWeek: Int = 0,
         var startTime: Long = 0,    //in minutes

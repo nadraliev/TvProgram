@@ -11,8 +11,8 @@ data class ShowForm(
         var minutes: String = "0",
         var genreName: String = ""
 ) : Serializable {
-    fun getShow(allGenres: List<Genre>): Show =
-            Show(
+    fun getShow(allGenres: List<Genre>): TvShow =
+            TvShow(
                     name,
                     dayOfWeek,
                     getMinutes(startTime).toLong(),
