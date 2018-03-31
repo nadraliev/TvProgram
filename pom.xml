@@ -26,6 +26,24 @@
 		<kotlin.version>1.1.4-3</kotlin.version>
 	</properties>
 
+	<profiles>
+		<profile>
+			<id>postgre</id>
+			<properties>
+				<activatedProperties>postgre</activatedProperties>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>mysql</id>
+			<properties>
+				<activatedProperties>mysql</activatedProperties>
+			</properties>
+		</profile>
+	</profiles>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -96,6 +114,12 @@
 	<build>
 		<sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
 		<testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<artifactId>kotlin-maven-plugin</artifactId>
